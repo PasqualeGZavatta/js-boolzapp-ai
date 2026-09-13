@@ -84,3 +84,34 @@ body {
     }
   }
 }
+
+
+.msg {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+
+  padding: 10px;
+  max-width: 70%;
+  border-radius: 10px;
+  margin: 10px;
+
+
+}
+
+.user-msg {
+  justify-self: flex-end;
+  background-color: rgb(57, 155, 57);
+  border-top-right-radius: 0;
+
+}
+
+.ai-msg {
+  background-color: white;
+  border-top-left-radius: 0;
+}
+
+#personality-select {
+  background-color: #ece5dd;
+  ;
+}

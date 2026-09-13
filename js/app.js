@@ -1,20 +1,22 @@
 const myMessageEl = document.getElementById('new-text-box')
-
 const inputMessageEl = document.getElementById('my-text')
 const form = document.querySelector('form')
+const personality = document.getElementById('personality-select')
 
-let messageText = '';
-let whoIsWriting = '';
 //endpoint con chiave annessa
 
 const endpoint = geminiConfig.endpoint + '?key=' + geminiConfig.apiKey;
-
 const chatHistory = [];
 
 
+let SYSTEM_PROMP = geminiConfig.systemPrompt[personality.value];
+personality.addEventListener('change', function (e) {
+    // Sarà 1,2,3,4 o 5
+    const index = e.target.value
+    SYSTEM_PROMP = geminiConfig.systemPrompt[index];
 
-
-
+    console.log("Personalità aggiornata all'indice:", index);
+})
 
 
 form.addEventListener('submit', function (e) {
@@ -27,23 +29,22 @@ form.addEventListener('submit', function (e) {
 //funcions
 
 function addUserTextMessage() {
+    const text = inputMessageEl.value.trim();
 
-    if (inputMessageEl.value.trim() !== '') {
-        myMessageEl.innerHTML += `<p class="msg user-msg">${inputMessageEl.value}</p>`
+    if (text !== '') {
+        myMessageEl.innerHTML += `<p class="msg user-msg">${text}</p>`
 
-        whoIsWriting = 'user';
-        messageText = inputMessageEl.value;
-        addChatHistory();
+        addChatHistory('user', text);
         sendToGemini();
         inputMessageEl.value = ''
     }
 
 }
 
-function addChatHistory() {
+function addChatHistory(role, text) {
     chatHistory.push({
-        role: whoIsWriting,
-        parts: [{ text: messageText }]
+        role: role,
+        parts: [{ text: text }]
     })
     // console.table(chatHistory)
 }
@@ -55,12 +56,17 @@ async function sendToGemini() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ contents: chatHistory })
+            body: JSON.stringify({
+                system_instruction: {
+                    parts: [{ text: SYSTEM_PROMP }]
+                },
+                contents: chatHistory
+            })
         }
     )
     const data = await response.json();
     console.log(data);
-    const aiText = data.candidates[0].content.parts[0].text
+    const aiText = data.candidates[0].content.parts[0].text;
     addAiTextMessage(aiText)
 
 }
@@ -68,9 +74,7 @@ async function sendToGemini() {
 function addAiTextMessage(message) {
     myMessageEl.innerHTML += `<p class="msg ai-msg">${message}</p>`
 
-    whoIsWriting = 'model';
-    messageText = message;
-    addChatHistory();
+    addChatHistory('model', message);
 
 
 }
