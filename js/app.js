@@ -2,7 +2,10 @@ const myMessageEl = document.getElementById('new-text-box')
 const inputMessageEl = document.getElementById('my-text')
 const form = document.querySelector('form')
 const personality = document.getElementById('personality-select')
-
+const switchModeToggle = document.getElementById('mioInterruttore')
+const backgroundTheme = document.getElementById('sfondo')
+const headerEl = document.querySelector('.app-header')
+const footerEl = document.querySelector('.app-footer')
 //endpoint con chiave annessa
 
 const endpoint = geminiConfig.endpoint + '?key=' + geminiConfig.apiKey;
@@ -16,6 +19,20 @@ personality.addEventListener('change', function (e) {
     SYSTEM_PROMP = geminiConfig.systemPrompt[index];
 
     console.log("Personalità aggiornata all'indice:", index);
+})
+
+switchModeToggle.addEventListener('change', () => {
+    if (switchModeToggle.checked) {
+        console.log('accendo dark mode');
+        headerEl.classList.add('dark-mode');
+        footerEl.classList.add('dark-mode');
+        backgroundTheme.classList.add('dark-mode-background');
+    } else {
+        console.log('spengo dark mode');
+        headerEl.classList.remove('dark-mode');
+        footerEl.classList.remove('dark-mode');
+        backgroundTheme.classList.remove('dark-mode-background');
+    }
 })
 
 

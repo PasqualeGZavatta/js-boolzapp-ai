@@ -49,6 +49,8 @@ body {
   padding: 2rem;
   background-image: url('../img/background.jpg');
   overflow-y: auto;
+
+
 }
 
 /* APP FOOTER */
@@ -114,4 +116,35 @@ body {
 #personality-select {
   background-color: #ece5dd;
   ;
+}
+
+
+
+.form-check-input:checked {
+  background-color: #2d8099;
+  /* Metti qui il colore che preferisci (es. un arancione) */
+  border-color: #212121;
+}
+
+.tema {
+  display: flex;
+}
+
+.bi-brightness-high {
+  margin-right: 8px;
+}
+
+.dark-mode {
+  background-color: #212121;
+  color: #ece5dd;
+}
+
+.dark-mode .header-right,
+.dark-mode .app-footer button {
+  color: #ece5dd;
+}
+
+.dark-mode-background {
+  background-image: url('../img/background-dark.jpg');
+  /* Sfondo scuro */
 }
