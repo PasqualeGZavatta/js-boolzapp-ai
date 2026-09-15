@@ -147,4 +147,19 @@ body {
 .dark-mode-background {
   background-image: url('../img/background-dark.jpg');
   /* Sfondo scuro */
+
+}
+
+#personality-select {
+  font-size: small;
+}
+
+.total-left-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#menuPersonalita.dropdown-toggle::after {
+  display: none;
 }
