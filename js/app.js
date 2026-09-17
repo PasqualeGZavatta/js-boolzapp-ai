@@ -83,6 +83,10 @@ function addChatHistory(role, text) {
 }
 
 async function sendToGemini() {
+
+    //attesa 2 sec prima del sto scrivendo
+    await new Promise(r => setTimeout(r, 2000));
+
     isWritingStatus();
     const response = await fetch(endpoint,
         {
@@ -116,6 +120,7 @@ function addAiTextMessage(message) {
     scrollToBottom();
 
 }
+
 
 async function isWritingStatus() {
 
